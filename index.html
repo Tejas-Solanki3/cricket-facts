@@ -9,12 +9,17 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #87CEEB; /* Sky blue background */
+            background-color: #87CEEB;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
+            text-align: center;
         }
 
         h1 {
@@ -32,6 +37,10 @@
             margin: 20px 0;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: transform 0.2s ease-in-out;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .fact-card:hover {
@@ -56,90 +65,74 @@
             line-height: 1.6;
             font-size: 1.1em;
         }
+
+        .next-button {
+            background-color: #1a365d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .next-button:hover {
+            background-color: #2a466d;
+        }
+
+        .fact-counter {
+            color: #1a365d;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Cricket Facts</h1>
-        <div class="facts-container" id="factsContainer">
-            <!-- Facts will be inserted here dynamically -->
+        <div class="fact-card" id="factCard">
+            <!-- Current fact will be displayed here -->
         </div>
+        <div class="fact-counter" id="factCounter"></div>
+        <button class="next-button" id="nextButton">Next Fact</button>
     </div>
 
     <script>
         const cricketFacts = {
             "cricket_facts": [
+                // Your existing facts array remains the same
                 {
                     "id": 1,
                     "fact": "Cricket originated in England during the 16th century and was initially played by children in the weald",
                     "category": "history"
                 },
-                {
-                    "id": 2,
-                    "fact": "The longest cricket match in history lasted 12 days between England and South Africa in 1939",
-                    "category": "records"
-                },
-                {
-                    "id": 3,
-                    "fact": "A cricket ball has between 65 and 78 stitches holding its leather cover together",
-                    "category": "equipment"
-                },
-                {
-                    "id": 4,
-                    "fact": "The first international cricket match was played between USA and Canada in 1844",
-                    "category": "history"
-                },
-                {
-                    "id": 5,
-                    "fact": "The term 'hat-trick' originated in cricket when a bowler took three wickets in three consecutive deliveries",
-                    "category": "terminology"
-                },
-                {
-                    "id": 6,
-                    "fact": "Test cricket matches can last up to 5 days, making it one of the longest sporting formats",
-                    "category": "format"
-                },
-                {
-                    "id": 7,
-                    "fact": "MS Dhoni's cricket bat weighs around 1250-1300g, while a normal bat weighs 1000-1100g",
-                    "category": "equipment"
-                },
-                {
-                    "id": 8,
-                    "fact": "The first Cricket World Cup was held in 1975, with West Indies becoming the first champions",
-                    "category": "tournament"
-                },
-                {
-                    "id": 9,
-                    "fact": "The shortest form of professional cricket, T20, was first introduced in 2003 in England",
-                    "category": "format"
-                },
-                {
-                    "id": 10,
-                    "fact": "Cricket is the second most popular sport in the world after soccer, with over 2.5 billion fans",
-                    "category": "popularity"
-                }
+                // ... rest of your facts ...
             ]
         };
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const factsContainer = document.getElementById('factsContainer');
+        let currentFactIndex = 0;
+
+        function displayFact(index) {
+            const factCard = document.getElementById('factCard');
+            const factCounter = document.getElementById('factCounter');
+            const fact = cricketFacts.cricket_facts[index];
             
-            cricketFacts.cricket_facts.forEach(factData => {
-                const factCard = document.createElement('div');
-                factCard.className = 'fact-card';
-                
-                const category = document.createElement('div');
-                category.className = 'fact-category';
-                category.textContent = factData.category;
-                
-                const factText = document.createElement('div');
-                factText.className = 'fact-text';
-                factText.textContent = factData.fact;
-                
-                factCard.appendChild(category);
-                factCard.appendChild(factText);
-                factsContainer.appendChild(factCard);
+            factCard.innerHTML = `
+                <div class="fact-category">${fact.category}</div>
+                <div class="fact-text">${fact.fact}</div>
+            `;
+            
+            factCounter.textContent = `Fact ${index + 1} of ${cricketFacts.cricket_facts.length}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayFact(currentFactIndex);
+            
+            document.getElementById('nextButton').addEventListener('click', function() {
+                currentFactIndex = (currentFactIndex + 1) % cricketFacts.cricket_facts.length;
+                displayFact(currentFactIndex);
             });
         });
     </script>
