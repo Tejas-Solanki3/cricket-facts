@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Facts</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #87CEEB; /* Sky blue background */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a365d;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .fact-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .fact-category {
+            display: inline-block;
+            background-color: #1a365d;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: white;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fact-text {
+            color: #2c3e50;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cricket Facts</h1>
+        <div class="facts-container" id="factsContainer">
+            <!-- Facts will be inserted here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        const cricketFacts = {
+            "cricket_facts": [
+                {
+                    "id": 1,
+                    "fact": "Cricket originated in England during the 16th century and was initially played by children in the weald",
+                    "category": "history"
+                },
+                {
+                    "id": 2,
+                    "fact": "The longest cricket match in history lasted 12 days between England and South Africa in 1939",
+                    "category": "records"
+                },
+                {
+                    "id": 3,
+                    "fact": "A cricket ball has between 65 and 78 stitches holding its leather cover together",
+                    "category": "equipment"
+                },
+                {
+                    "id": 4,
+                    "fact": "The first international cricket match was played between USA and Canada in 1844",
+                    "category": "history"
+                },
+                {
+                    "id": 5,
+                    "fact": "The term 'hat-trick' originated in cricket when a bowler took three wickets in three consecutive deliveries",
+                    "category": "terminology"
+                },
+                {
+                    "id": 6,
+                    "fact": "Test cricket matches can last up to 5 days, making it one of the longest sporting formats",
+                    "category": "format"
+                },
+                {
+                    "id": 7,
+                    "fact": "MS Dhoni's cricket bat weighs around 1250-1300g, while a normal bat weighs 1000-1100g",
+                    "category": "equipment"
+                },
+                {
+                    "id": 8,
+                    "fact": "The first Cricket World Cup was held in 1975, with West Indies becoming the first champions",
+                    "category": "tournament"
+                },
+                {
+                    "id": 9,
+                    "fact": "The shortest form of professional cricket, T20, was first introduced in 2003 in England",
+                    "category": "format"
+                },
+                {
+                    "id": 10,
+                    "fact": "Cricket is the second most popular sport in the world after soccer, with over 2.5 billion fans",
+                    "category": "popularity"
+                }
+            ]
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const factsContainer = document.getElementById('factsContainer');
+            
+            cricketFacts.cricket_facts.forEach(factData => {
+                const factCard = document.createElement('div');
+                factCard.className = 'fact-card';
+                
+                const category = document.createElement('div');
+                category.className = 'fact-category';
+                category.textContent = factData.category;
+                
+                const factText = document.createElement('div');
+                factText.className = 'fact-text';
+                factText.textContent = factData.fact;
+                
+                factCard.appendChild(category);
+                factCard.appendChild(factText);
+                factsContainer.appendChild(factCard);
+            });
+        });
+    </script>
+</body>
+</html>
